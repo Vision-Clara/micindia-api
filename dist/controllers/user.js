@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.signIn = exports.signUp = void 0;
+exports.signOut = exports.signIn = exports.signUp = void 0;
 const user_1 = __importDefault(require("../models/user"));
 const customError_1 = __importDefault(require("../utils/customError"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
@@ -52,7 +52,7 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.cookie("token", token, helpers_1.COOKIE_OPTIONS);
         res.status(200).json({
             success: true,
-            message: "User created",
+            message: "User Created Successfully",
             token,
             newUser,
         });
@@ -69,7 +69,7 @@ exports.signUp = signUp;
 /******************************************************
  * @SIGNIN
  * @route http://localhost:4000/api/v1/signin
- * @description User signin Controller for login new user
+ * @description User signin Controller for login user
  * @parameters email, password
  * @returns An Object
  ******************************************************/
@@ -97,7 +97,7 @@ const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.cookie("token", token, helpers_1.COOKIE_OPTIONS);
         res.status(200).json({
             success: true,
-            message: "User Logged In",
+            message: "User Logged In Successfully",
             token,
             existingUser,
         });
@@ -111,3 +111,30 @@ const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.signIn = signIn;
+/******************************************************
+ * @SIGNOUT
+ * @route http://localhost:4000/api/v1/signout
+ * @description User signout Controller for logout user
+ * @parameters email, password
+ * @returns An Message
+ ******************************************************/
+const signOut = (req, res) => {
+    try {
+        res.cookie("token", null, {
+            expires: new Date(Date.now()),
+            httpOnly: true,
+        });
+        res.status(200).json({
+            success: true,
+            message: "User Logged Out Successfully",
+        });
+    }
+    catch (error) {
+        console.log(error);
+        res.status(error.code).json({
+            success: false,
+            message: error.message,
+        });
+    }
+};
+exports.signOut = signOut;

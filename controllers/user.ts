@@ -57,7 +57,7 @@ export const signUp = async (req: Request, res: Response) => {
 
     res.status(200).json({
       success: true,
-      message: "User created",
+      message: "User Created Successfully",
       token,
       newUser,
     });
@@ -74,7 +74,7 @@ export const signUp = async (req: Request, res: Response) => {
 /******************************************************
  * @SIGNIN
  * @route http://localhost:4000/api/v1/signin
- * @description User signin Controller for login new user
+ * @description User signin Controller for login user
  * @parameters email, password
  * @returns An Object
  ******************************************************/
@@ -121,9 +121,37 @@ export const signIn = async (req: Request, res: Response) => {
 
     res.status(200).json({
       success: true,
-      message: "User Logged In",
+      message: "User Logged In Successfully",
       token,
       existingUser,
+    });
+  } catch (error: any) {
+    console.log(error);
+
+    res.status(error.code).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+/******************************************************
+ * @SIGNOUT
+ * @route http://localhost:4000/api/v1/signout
+ * @description User signout Controller for logout user
+ * @parameters email, password
+ * @returns An Message
+ ******************************************************/
+export const signOut = (req: Request, res: Response) => {
+  try {
+    res.cookie("token", null, {
+      expires: new Date(Date.now()),
+      httpOnly: true,
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "User Logged Out Successfully",
     });
   } catch (error: any) {
     console.log(error);
