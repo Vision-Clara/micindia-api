@@ -1,12 +1,12 @@
 import { connect } from "mongoose";
-const { DB_URI } = process.env;
+import config from "./main";
 
 const connectDB = async () => {
   try {
-    if (!DB_URI) {
+    if (!config.MONGODB_URL) {
       console.log("Something went wrong");
     } else {
-      await connect(DB_URI);
+      await connect(config.MONGODB_URL);
       console.log("DB Connected");
     }
   } catch (error) {

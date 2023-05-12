@@ -1,9 +1,14 @@
 import express from "express";
+import cookieParser from "cookie-parser";
+import cors from "cors";
+import rootRouter from "./routers/rootRouter";
 
 const expressApp = express();
 
-expressApp.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+expressApp.use(express.json());
+expressApp.use(express.urlencoded({ extended: true }));
+expressApp.use(cookieParser());
+expressApp.use(cors());
+expressApp.use("/api/v1", rootRouter);
 
 export default expressApp;

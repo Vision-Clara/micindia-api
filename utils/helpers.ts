@@ -1,1 +1,5 @@
-export const AUTH_ROLES = ["NEW_USER", "REG_USER", "ADMIN"];
+export enum AUTH_ROLES {
+  NEW_USER = "NEW_USER",
+  REG_USER = "REG_USER",
+  ADMIN = "ADMIN",
+}

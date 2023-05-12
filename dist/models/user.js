@@ -22,11 +22,12 @@ const UserSchema = new mongoose_1.default.Schema({
     password: {
         type: String,
         required: [true, "Password Required"],
+        minLength: [8, "Password should be minimum 8 characters"],
     },
     role: {
         type: String,
-        enum: helpers_1.AUTH_ROLES,
-        default: "NEW_USER",
+        enum: Object.values(helpers_1.AUTH_ROLES),
+        default: helpers_1.AUTH_ROLES.NEW_USER,
     },
 }, {
     timestamps: true,

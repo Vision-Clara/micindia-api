@@ -8,16 +8,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
-const { DB_URI } = process.env;
+const main_1 = __importDefault(require("./main"));
 const connectDB = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        if (!DB_URI) {
+        if (!main_1.default.MONGODB_URL) {
             console.log("Something went wrong");
         }
         else {
-            yield (0, mongoose_1.connect)(DB_URI);
+            yield (0, mongoose_1.connect)(main_1.default.MONGODB_URL);
             console.log("DB Connected");
         }
     }

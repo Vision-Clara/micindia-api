@@ -1,10 +1,9 @@
-require("dotenv").config();
+import config from "./config/main";
 import app from "./app";
 import connectDB from "./config/db";
-const { PORT } = process.env || 4000;
 
 connectDB();
 
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
+app.listen(config.PORT, () => {
+  console.log(`Server listening on port ${config.PORT}`);
 });

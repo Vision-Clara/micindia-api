@@ -1,7 +1,18 @@
 import mongoose from "mongoose";
+import { Model } from "mongoose";
 import { AUTH_ROLES } from "../utils/helpers";
+import bcrypt from "bcryptjs";
+import JWT from "jsonwebtoken";
+import config from "../config/main";
 
-const UserSchema = new mongoose.Schema(
+export interface User {
+  name: string;
+  email: string;
+  password: string;
+  role: string;
+}
+
+const UserSchema = new mongoose.Schema<User>(
   {
     name: {
       type: String,
@@ -23,8 +34,8 @@ const UserSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: [AUTH_ROLES, "Invalid Role"],
-      default: "NEW_USER",
+      enum: Object.values(AUTH_ROLES),
+      default: AUTH_ROLES.NEW_USER,
     },
   },
   {
@@ -32,5 +43,5 @@ const UserSchema = new mongoose.Schema(
   }
 );
 
-const UserModel = mongoose.model("user", UserSchema);
+const UserModel = mongoose.model<User>("user", UserSchema);
 export default UserModel;
