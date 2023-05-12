@@ -1,9 +1,5 @@
 import mongoose from "mongoose";
-import { Model } from "mongoose";
 import { AUTH_ROLES } from "../utils/helpers";
-import bcrypt from "bcryptjs";
-import JWT from "jsonwebtoken";
-import config from "../config/main";
 
 export interface User {
   name: string;

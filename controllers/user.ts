@@ -5,12 +5,7 @@ import CustomError from "../utils/customError";
 import bcrypt from "bcryptjs";
 import JWT from "jsonwebtoken";
 import config from "../config/main";
-
-export const cookieOptions = {
-  expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
-  httpOnly: true,
-  //could be in a separate file in utils
-};
+import { COOKIE_OPTIONS } from "../utils/helpers";
 
 /******************************************************
  * @SIGNUP
@@ -58,7 +53,7 @@ export const signUp = async (req: Request, res: Response) => {
       }
     );
 
-    res.cookie("token", token, cookieOptions);
+    res.cookie("token", token, COOKIE_OPTIONS);
 
     res.status(200).json({
       success: true,
@@ -122,7 +117,7 @@ export const signIn = async (req: Request, res: Response) => {
       }
     );
 
-    res.cookie("token", token, cookieOptions);
+    res.cookie("token", token, COOKIE_OPTIONS);
 
     res.status(200).json({
       success: true,

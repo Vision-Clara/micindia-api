@@ -12,17 +12,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.signIn = exports.signUp = exports.cookieOptions = void 0;
+exports.signIn = exports.signUp = void 0;
 const user_1 = __importDefault(require("../models/user"));
 const customError_1 = __importDefault(require("../utils/customError"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const main_1 = __importDefault(require("../config/main"));
-exports.cookieOptions = {
-    expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
-    httpOnly: true,
-    //could be in a separate file in utils
-};
+const helpers_1 = require("../utils/helpers");
 /******************************************************
  * @SIGNUP
  * @route http://localhost:4000/api/v1/signup
@@ -53,7 +49,7 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }, main_1.default.JWT_SECRET, {
             expiresIn: main_1.default.JWT_EXPIRY,
         });
-        res.cookie("token", token, exports.cookieOptions);
+        res.cookie("token", token, helpers_1.COOKIE_OPTIONS);
         res.status(200).json({
             success: true,
             message: "User created",
@@ -98,7 +94,7 @@ const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }, main_1.default.JWT_SECRET, {
             expiresIn: main_1.default.JWT_EXPIRY,
         });
-        res.cookie("token", token, exports.cookieOptions);
+        res.cookie("token", token, helpers_1.COOKIE_OPTIONS);
         res.status(200).json({
             success: true,
             message: "User Logged In",
