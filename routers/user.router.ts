@@ -8,8 +8,8 @@ import isLoggedIn from "../middlewares/auth.middleware";
 
 const userRouter = Router();
 
-userRouter.get("/", isLoggedIn, getAllUsers);
-userRouter.get("/:userId", isLoggedIn, getUserById);
-userRouter.delete("/:userId", isLoggedIn, deleteUserById);
+userRouter.get("/", getAllUsers);
+userRouter.get("/:userId", getUserById);
+userRouter.delete("/:userId", deleteUserById);
 
 export default userRouter;

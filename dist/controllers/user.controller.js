@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUserById = exports.getUserById = exports.getAllUsers = exports.signOut = exports.signIn = exports.signUp = void 0;
+exports.deleteUserById = exports.getUserById = exports.getAllUsers = exports.getUserProfile = exports.signOut = exports.signIn = exports.signUp = void 0;
 const user_model_1 = __importDefault(require("../models/user.model"));
 const helpers_1 = require("../utils/helpers");
 /******************************************************
@@ -125,6 +125,40 @@ const signOut = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.signOut = signOut;
+/******************************************************
+ * @GET_USER_PROFILE
+ * @route http://localhost:4000/api/v1/user
+ * @description Fetch One User Profile Controller
+ * @parameters userId
+ * @returns User Details
+ ******************************************************/
+const getUserProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userId = req.user._id;
+        const user = yield user_model_1.default.findById(userId);
+        if (!user) {
+            throw new helpers_1.CustomError("User Not Found", 400);
+        }
+        user.password = "******";
+        const userProfile = {
+            name: user.name,
+            email: user.email,
+        };
+        res.status(200).json({
+            success: true,
+            message: "Fetched User Successfully",
+            user: userProfile,
+        });
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(error.code || 500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+});
+exports.getUserProfile = getUserProfile;
 /******************************************************
  * @GET_ALL_USERS
  * @route http://localhost:4000/api/v1/user

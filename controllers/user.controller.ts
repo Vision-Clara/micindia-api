@@ -140,6 +140,44 @@ export const signOut = async (req: Request, res: Response) => {
 };
 
 /******************************************************
+ * @GET_USER_PROFILE
+ * @route http://localhost:4000/api/v1/user
+ * @description Fetch One User Profile Controller
+ * @parameters userId
+ * @returns User Details
+ ******************************************************/
+export const getUserProfile = async (req: Request, res: Response) => {
+  try {
+    const userId = (req as CustomRequest).user._id;
+
+    const user = await UserModel.findById(userId);
+
+    if (!user) {
+      throw new CustomError("User Not Found", 400);
+    }
+
+    user.password = "******";
+
+    const userProfile = {
+      name: user.name,
+      email: user.email,
+    };
+
+    res.status(200).json({
+      success: true,
+      message: "Fetched User Successfully",
+      user: userProfile,
+    });
+  } catch (error: any) {
+    console.log(error);
+    return res.status(error.code || 500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+/******************************************************
  * @GET_ALL_USERS
  * @route http://localhost:4000/api/v1/user
  * @description Fetch User Details Controller

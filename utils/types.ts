@@ -1,4 +1,5 @@
 import { Request } from "express";
+import { Types } from "mongoose";
 
 export interface IUser {
   name: string;
@@ -8,6 +9,7 @@ export interface IUser {
 }
 
 export interface IUserDocument extends IUser, Document {
+  _id: Types.ObjectId;
   name: string;
   email: string;
   password: string;
