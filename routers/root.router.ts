@@ -13,7 +13,7 @@ const rootRouter = Router();
 rootRouter.post("/signup", signUp);
 rootRouter.post("/signin", signIn);
 rootRouter.post("/signout", signOut);
-rootRouter.use("/profile", isLoggedIn, getUserProfile);
+rootRouter.get("/profile", isLoggedIn, getUserProfile);
 rootRouter.use("/user", isLoggedIn, userRouter);
 
 export default rootRouter;
