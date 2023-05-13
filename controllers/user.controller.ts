@@ -1,0 +1,172 @@
+import { Request, Response } from "express";
+
+import UserModel from "../models/user.model";
+import { CustomError, COOKIE_OPTIONS } from "../utils/helpers";
+import { CustomRequest } from "../utils/types";
+
+/******************************************************
+ * @SIGNUP
+ * @route http://localhost:4000/api/v1/signup
+ * @description User register Controller for creating new user
+ * @parameters name, email, password
+ * @returns User Details with Token
+ ******************************************************/
+export const signUp = async (req: Request, res: Response) => {
+  try {
+    const {
+      name,
+      email,
+      password,
+    }: { name: string; email: string; password: string } = req.body;
+
+    if (!name || !email || !password) {
+      throw new CustomError("Please fill all details", 400);
+    }
+
+    //check if user exists
+    const existingUser = await UserModel.findOne({ email });
+
+    if (existingUser) {
+      throw new CustomError("User already exist", 400);
+    }
+
+    const newUser = await UserModel.create({
+      name,
+      email,
+      password,
+    });
+
+    newUser.password = "******";
+
+    const token = newUser.getJwtToken();
+
+    res.cookie("token", token, COOKIE_OPTIONS);
+
+    res.status(200).json({
+      success: true,
+      message: "User Created Successfully",
+      token,
+      newUser,
+    });
+  } catch (error: any) {
+    console.log(error);
+
+    res.status(error.code || 500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+/******************************************************
+ * @SIGNIN
+ * @route http://localhost:4000/api/v1/signin
+ * @description User signin Controller for login user
+ * @parameters email, password
+ * @returns User Details with Token
+ ******************************************************/
+export const signIn = async (req: Request, res: Response) => {
+  try {
+    const {
+      email,
+      password,
+    }: { name: string; email: string; password: string } = req.body;
+
+    if (!email || !password) {
+      throw new CustomError("Please fill all details", 400);
+    }
+
+    //check if user exists
+    const existingUser = await UserModel.findOne({ email });
+
+    if (!existingUser) {
+      throw new CustomError("User does not exist", 400);
+    }
+
+    const isPasswordMatched = await existingUser.comparePassword(password);
+
+    if (!isPasswordMatched) {
+      throw new CustomError("Password does not match", 400);
+    }
+
+    existingUser.password = "******";
+
+    const token = existingUser.getJwtToken();
+
+    res.cookie("token", token, COOKIE_OPTIONS);
+
+    res.status(200).json({
+      success: true,
+      message: "User Logged In Successfully",
+      token,
+      existingUser,
+    });
+  } catch (error: any) {
+    console.log(error);
+
+    res.status(error.code).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+/******************************************************
+ * @SIGNOUT
+ * @route http://localhost:4000/api/v1/signout
+ * @description User signout Controller for logout user
+ * @parameters email, password
+ * @returns An Logout Message
+ ******************************************************/
+export const signOut = async (req: Request, res: Response) => {
+  try {
+    res.cookie("token", null, {
+      expires: new Date(Date.now()),
+      httpOnly: true,
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "User Logged Out Successfully",
+    });
+  } catch (error: any) {
+    console.log(error);
+
+    res.status(error.code).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+/******************************************************
+ * @GET_ALL_USERS
+ * @route http://localhost:4000/api/v1/user
+ * @description User signout Controller for logout user
+ * @parameters email, password
+ * @returns User Details
+ ******************************************************/
+export const getAllUsers = async (req: Request, res: Response) => {
+  try {
+    if (!((req as CustomRequest).user.role === "ADMIN")) {
+      throw new CustomError(
+        "User is Not Authorized to Perform this Action",
+        401
+      );
+    }
+
+    const allUsers = await UserModel.find();
+
+    res.status(200).json({
+      success: true,
+      message: "Fetched Users Successfully",
+      users: allUsers,
+    });
+  } catch (error: any) {
+    console.log(error);
+    return res.status(error.code || 500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
