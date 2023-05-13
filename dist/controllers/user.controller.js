@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllUsers = exports.signOut = exports.signIn = exports.signUp = void 0;
+exports.deleteUserById = exports.getUserById = exports.getAllUsers = exports.signOut = exports.signIn = exports.signUp = void 0;
 const user_model_1 = __importDefault(require("../models/user.model"));
 const helpers_1 = require("../utils/helpers");
 /******************************************************
@@ -102,7 +102,7 @@ exports.signIn = signIn;
  * @SIGNOUT
  * @route http://localhost:4000/api/v1/signout
  * @description User signout Controller for logout user
- * @parameters email, password
+ * @parameters NA
  * @returns An Logout Message
  ******************************************************/
 const signOut = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -128,8 +128,8 @@ exports.signOut = signOut;
 /******************************************************
  * @GET_ALL_USERS
  * @route http://localhost:4000/api/v1/user
- * @description User signout Controller for logout user
- * @parameters email, password
+ * @description Fetch User Details Controller
+ * @parameters NA
  * @returns User Details
  ******************************************************/
 const getAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -153,3 +153,69 @@ const getAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.getAllUsers = getAllUsers;
+/******************************************************
+ * @GET_USER_BY_ID
+ * @route http://localhost:4000/api/v1/user
+ * @description Fetch One User Details Controller
+ * @parameters userId
+ * @returns User Details
+ ******************************************************/
+const getUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        if (!(req.user.role === "ADMIN")) {
+            throw new helpers_1.CustomError("User is Not Authorized to Perform this Action", 401);
+        }
+        const { userId } = req.params;
+        const user = yield user_model_1.default.findById(userId);
+        if (!user) {
+            throw new helpers_1.CustomError("User Not Found", 400);
+        }
+        user.password = "******";
+        res.status(200).json({
+            success: true,
+            message: "Fetched User Successfully",
+            user: user,
+        });
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(error.code || 500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+});
+exports.getUserById = getUserById;
+/******************************************************
+ * @DEL_USER_BY_ID
+ * @route http://localhost:4000/api/v1/user
+ * @description Delete One User Controller
+ * @parameters userId
+ * @returns User Details
+ ******************************************************/
+const deleteUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        if (!(req.user.role === "ADMIN")) {
+            throw new helpers_1.CustomError("User is Not Authorized to Perform this Action", 401);
+        }
+        const { userId } = req.params;
+        const user = yield user_model_1.default.findById(userId);
+        if (!user) {
+            throw new helpers_1.CustomError("User Not Found", 400);
+        }
+        yield user_model_1.default.findByIdAndDelete(userId);
+        res.status(200).json({
+            success: true,
+            message: "User Deleted Successfully",
+            user: user,
+        });
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(error.code || 500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+});
+exports.deleteUserById = deleteUserById;

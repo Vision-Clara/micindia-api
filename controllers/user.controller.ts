@@ -115,7 +115,7 @@ export const signIn = async (req: Request, res: Response) => {
  * @SIGNOUT
  * @route http://localhost:4000/api/v1/signout
  * @description User signout Controller for logout user
- * @parameters email, password
+ * @parameters NA
  * @returns An Logout Message
  ******************************************************/
 export const signOut = async (req: Request, res: Response) => {
@@ -142,8 +142,8 @@ export const signOut = async (req: Request, res: Response) => {
 /******************************************************
  * @GET_ALL_USERS
  * @route http://localhost:4000/api/v1/user
- * @description User signout Controller for logout user
- * @parameters email, password
+ * @description Fetch User Details Controller
+ * @parameters NA
  * @returns User Details
  ******************************************************/
 export const getAllUsers = async (req: Request, res: Response) => {
@@ -161,6 +161,86 @@ export const getAllUsers = async (req: Request, res: Response) => {
       success: true,
       message: "Fetched Users Successfully",
       users: allUsers,
+    });
+  } catch (error: any) {
+    console.log(error);
+    return res.status(error.code || 500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+/******************************************************
+ * @GET_USER_BY_ID
+ * @route http://localhost:4000/api/v1/user
+ * @description Fetch One User Details Controller
+ * @parameters userId
+ * @returns User Details
+ ******************************************************/
+export const getUserById = async (req: Request, res: Response) => {
+  try {
+    if (!((req as CustomRequest).user.role === "ADMIN")) {
+      throw new CustomError(
+        "User is Not Authorized to Perform this Action",
+        401
+      );
+    }
+
+    const { userId } = req.params;
+
+    const user = await UserModel.findById(userId);
+
+    if (!user) {
+      throw new CustomError("User Not Found", 400);
+    }
+
+    user.password = "******";
+
+    res.status(200).json({
+      success: true,
+      message: "Fetched User Successfully",
+      user: user,
+    });
+  } catch (error: any) {
+    console.log(error);
+    return res.status(error.code || 500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+/******************************************************
+ * @DEL_USER_BY_ID
+ * @route http://localhost:4000/api/v1/user
+ * @description Delete One User Controller
+ * @parameters userId
+ * @returns User Details
+ ******************************************************/
+export const deleteUserById = async (req: Request, res: Response) => {
+  try {
+    if (!((req as CustomRequest).user.role === "ADMIN")) {
+      throw new CustomError(
+        "User is Not Authorized to Perform this Action",
+        401
+      );
+    }
+
+    const { userId } = req.params;
+
+    const user = await UserModel.findById(userId);
+
+    if (!user) {
+      throw new CustomError("User Not Found", 400);
+    }
+
+    await UserModel.findByIdAndDelete(userId);
+
+    res.status(200).json({
+      success: true,
+      message: "User Deleted Successfully",
+      user: user,
     });
   } catch (error: any) {
     console.log(error);
