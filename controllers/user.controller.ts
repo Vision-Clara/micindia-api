@@ -45,8 +45,7 @@ export const signUp = async (req: Request, res: Response) => {
     res.status(200).json({
       success: true,
       message: "User Created Successfully",
-      token,
-      newUser,
+      user: newUser,
     });
   } catch (error: any) {
     console.log(error);
@@ -98,8 +97,7 @@ export const signIn = async (req: Request, res: Response) => {
     res.status(200).json({
       success: true,
       message: "User Logged In Successfully",
-      token,
-      existingUser,
+      user: existingUser,
     });
   } catch (error: any) {
     console.log(error);
@@ -186,13 +184,6 @@ export const getUserProfile = async (req: Request, res: Response) => {
  ******************************************************/
 export const getAllUsers = async (req: Request, res: Response) => {
   try {
-    if (!((req as CustomRequest).user.role === "ADMIN")) {
-      throw new CustomError(
-        "User is Not Authorized to Perform this Action",
-        401
-      );
-    }
-
     const allUsers = await UserModel.find();
 
     res.status(200).json({
@@ -218,13 +209,6 @@ export const getAllUsers = async (req: Request, res: Response) => {
  ******************************************************/
 export const getUserById = async (req: Request, res: Response) => {
   try {
-    if (!((req as CustomRequest).user.role === "ADMIN")) {
-      throw new CustomError(
-        "User is Not Authorized to Perform this Action",
-        401
-      );
-    }
-
     const { userId } = req.params;
 
     const user = await UserModel.findById(userId);
@@ -258,13 +242,6 @@ export const getUserById = async (req: Request, res: Response) => {
  ******************************************************/
 export const deleteUserById = async (req: Request, res: Response) => {
   try {
-    if (!((req as CustomRequest).user.role === "ADMIN")) {
-      throw new CustomError(
-        "User is Not Authorized to Perform this Action",
-        401
-      );
-    }
-
     const { userId } = req.params;
 
     const user = await UserModel.findById(userId);

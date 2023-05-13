@@ -29,7 +29,7 @@ const UserSchema = new mongoose.Schema(
     role: {
       type: String,
       enum: Object.values(AUTH_ROLES),
-      default: AUTH_ROLES.NEW_USER,
+      default: AUTH_ROLES.USER,
     },
   },
   {

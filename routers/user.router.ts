@@ -4,7 +4,6 @@ import {
   getAllUsers,
   getUserById,
 } from "../controllers/user.controller";
-import isLoggedIn from "../middlewares/auth.middleware";
 
 const userRouter = Router();
 

@@ -44,8 +44,7 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(200).json({
             success: true,
             message: "User Created Successfully",
-            token,
-            newUser,
+            user: newUser,
         });
     }
     catch (error) {
@@ -85,8 +84,7 @@ const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(200).json({
             success: true,
             message: "User Logged In Successfully",
-            token,
-            existingUser,
+            user: existingUser,
         });
     }
     catch (error) {
@@ -168,9 +166,6 @@ exports.getUserProfile = getUserProfile;
  ******************************************************/
 const getAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        if (!(req.user.role === "ADMIN")) {
-            throw new helpers_1.CustomError("User is Not Authorized to Perform this Action", 401);
-        }
         const allUsers = yield user_model_1.default.find();
         res.status(200).json({
             success: true,
@@ -196,9 +191,6 @@ exports.getAllUsers = getAllUsers;
  ******************************************************/
 const getUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        if (!(req.user.role === "ADMIN")) {
-            throw new helpers_1.CustomError("User is Not Authorized to Perform this Action", 401);
-        }
         const { userId } = req.params;
         const user = yield user_model_1.default.findById(userId);
         if (!user) {
@@ -229,9 +221,6 @@ exports.getUserById = getUserById;
  ******************************************************/
 const deleteUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        if (!(req.user.role === "ADMIN")) {
-            throw new helpers_1.CustomError("User is Not Authorized to Perform this Action", 401);
-        }
         const { userId } = req.params;
         const user = yield user_model_1.default.findById(userId);
         if (!user) {

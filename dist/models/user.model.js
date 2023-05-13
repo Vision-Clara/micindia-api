@@ -39,7 +39,7 @@ const UserSchema = new mongoose_1.default.Schema({
     role: {
         type: String,
         enum: Object.values(helpers_1.AUTH_ROLES),
-        default: helpers_1.AUTH_ROLES.NEW_USER,
+        default: helpers_1.AUTH_ROLES.USER,
     },
 }, {
     timestamps: true,
