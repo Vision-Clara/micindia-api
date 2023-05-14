@@ -9,11 +9,15 @@ const user_router_1 = __importDefault(require("./user.router"));
 const auth_middleware_1 = __importDefault(require("../middlewares/auth.middleware"));
 const admin_middleware_1 = __importDefault(require("../middlewares/admin.middleware"));
 const feedback_controller_1 = require("../controllers/feedback.controller");
+const event_router_1 = __importDefault(require("./event.router"));
 const rootRouter = (0, express_1.Router)();
 rootRouter.post("/signup", user_controller_1.signUp);
 rootRouter.post("/signin", user_controller_1.signIn);
 rootRouter.post("/signout", user_controller_1.signOut);
 rootRouter.post("/feedback", feedback_controller_1.sendFeedback);
+// Only User
 rootRouter.get("/profile", auth_middleware_1.default, user_controller_1.getUserProfile);
+// Only ADMIN User
 rootRouter.use("/user", auth_middleware_1.default, admin_middleware_1.default, user_router_1.default);
+rootRouter.use("/event", auth_middleware_1.default, admin_middleware_1.default, event_router_1.default);
 exports.default = rootRouter;
