@@ -7,9 +7,9 @@ import { CustomRequest } from "../utils/types";
 /******************************************************
  * @SIGNUP
  * @route http://localhost:4000/api/v1/signup
- * @description User register Controller for creating new user
+ * @description Controller for creating new user
  * @parameters name, email, password
- * @returns User Details with Token
+ * @returns New User Details with Cookie Token
  ******************************************************/
 export const signUp = async (req: Request, res: Response) => {
   try {
@@ -61,9 +61,9 @@ export const signUp = async (req: Request, res: Response) => {
 /******************************************************
  * @SIGNIN
  * @route http://localhost:4000/api/v1/signin
- * @description User signin Controller for login user
+ * @description Controller for login user
  * @parameters email, password
- * @returns User Details with Token
+ * @returns User Details with Cookie Token
  ******************************************************/
 export const signIn = async (req: Request, res: Response) => {
   try {
@@ -114,7 +114,7 @@ export const signIn = async (req: Request, res: Response) => {
 /******************************************************
  * @SIGNOUT
  * @route http://localhost:4000/api/v1/signout
- * @description User signout Controller for logout user
+ * @description Controller for logout user
  * @parameters NA
  * @returns An Logout Message
  ******************************************************/
@@ -143,9 +143,9 @@ export const signOut = async (req: Request, res: Response) => {
 /******************************************************
  * @GET_USER_PROFILE
  * @route http://localhost:4000/api/v1/user
- * @description Fetch One User Profile Controller
+ * @description Controller to fetch user profile
  * @parameters userId
- * @returns User Details
+ * @returns User Profile
  ******************************************************/
 export const getUserProfile = async (req: Request, res: Response) => {
   try {
@@ -183,7 +183,7 @@ export const getUserProfile = async (req: Request, res: Response) => {
 /******************************************************
  * @GET_ALL_USERS
  * @route http://localhost:4000/api/v1/user
- * @description Fetch User Details Controller
+ * @description Controller to fetch all users details
  * @parameters NA
  * @returns User Details
  ******************************************************/
@@ -210,7 +210,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
 /******************************************************
  * @GET_USER_BY_ID
  * @route http://localhost:4000/api/v1/user
- * @description Fetch One User Details Controller
+ * @description Controller to fetch a user details
  * @parameters userId
  * @returns User Details
  ******************************************************/
@@ -245,9 +245,9 @@ export const getUserById = async (req: Request, res: Response) => {
 /******************************************************
  * @DEL_USER_BY_ID
  * @route http://localhost:4000/api/v1/user
- * @description Delete One User Controller
+ * @description Controller to delete a user
  * @parameters userId
- * @returns User Details
+ * @returns Deleted User Details
  ******************************************************/
 export const deleteUserById = async (req: Request, res: Response) => {
   try {
@@ -280,9 +280,9 @@ export const deleteUserById = async (req: Request, res: Response) => {
 /******************************************************
  * @UPDATE_USER_BY_ID
  * @route http://localhost:4000/api/v1/user
- * @description Delete One User Controller
+ * @description Controller to update a user
  * @parameters userId
- * @returns User Details
+ * @returns Updated User Details
  ******************************************************/
 export const updateUserById = async (req: Request, res: Response) => {
   try {

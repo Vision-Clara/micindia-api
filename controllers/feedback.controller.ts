@@ -3,6 +3,13 @@ import { CustomError } from "../utils/helpers";
 import sendMail from "../utils/mailer";
 import config from "../config/main";
 
+/******************************************************
+ * @FEEDBACK
+ * @route http://localhost:4000/api/v1/feedback
+ * @description Controller for sending feedback
+ * @parameters feedbackUser, feedbackType, message
+ * @returns User Details with Token
+ ******************************************************/
 export const sendFeedback = async (req: Request, res: Response) => {
   try {
     const { feedbackUser, feedbackType, message } = req.body;

@@ -16,6 +16,13 @@ exports.sendFeedback = void 0;
 const helpers_1 = require("../utils/helpers");
 const mailer_1 = __importDefault(require("../utils/mailer"));
 const main_1 = __importDefault(require("../config/main"));
+/******************************************************
+ * @FEEDBACK
+ * @route http://localhost:4000/api/v1/feedback
+ * @description Controller for sending feedback
+ * @parameters feedbackUser, feedbackType, message
+ * @returns User Details with Token
+ ******************************************************/
 const sendFeedback = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { feedbackUser, feedbackType, message } = req.body;
