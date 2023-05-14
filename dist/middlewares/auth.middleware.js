@@ -25,7 +25,6 @@ const isLoggedIn = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
         }
         const decryptToken = jsonwebtoken_1.default.verify(token, main_1.default.JWT_SECRET);
         const user = yield user_model_1.default.findById(decryptToken._id);
-        console.log(user);
         if (!user) {
             throw new helpers_1.CustomError("User Not Found", 400);
         }

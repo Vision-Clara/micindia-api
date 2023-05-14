@@ -22,7 +22,7 @@ export const isLoggedIn = async (
     const decryptToken = JWT.verify(token, config.JWT_SECRET);
 
     const user = await UserModel.findById((<JwtPayload>decryptToken)._id);
-    console.log(user);
+
     if (!user) {
       throw new CustomError("User Not Found", 400);
     }
