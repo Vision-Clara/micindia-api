@@ -20,7 +20,7 @@ const helpers_1 = require("../utils/helpers");
  * @route http://localhost:4000/api/v1/signup
  * @description Controller for creating new user
  * @parameters name, email, password
- * @returns New User Details with Cookie Token
+ * @returns New user details with cookie token
  ******************************************************/
 const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -62,7 +62,7 @@ exports.signUp = signUp;
  * @route http://localhost:4000/api/v1/signin
  * @description Controller for login user
  * @parameters email, password
- * @returns User Details with Cookie Token
+ * @returns User details with cookie token
  ******************************************************/
 const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -103,7 +103,7 @@ exports.signIn = signIn;
  * @route http://localhost:4000/api/v1/signout
  * @description Controller for logout user
  * @parameters NA
- * @returns An Logout Message
+ * @returns An Llogout message
  ******************************************************/
 const signOut = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -131,7 +131,7 @@ exports.signOut = signOut;
  * @route http://localhost:4000/api/v1/user
  * @description Controller to fetch user profile
  * @parameters userId
- * @returns User Profile
+ * @returns User profile
  ******************************************************/
 const getUserProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -166,7 +166,7 @@ exports.getUserProfile = getUserProfile;
  * @route http://localhost:4000/api/v1/user
  * @description Controller to fetch all users details
  * @parameters NA
- * @returns User Details
+ * @returns User details
  ******************************************************/
 const getAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -192,7 +192,7 @@ exports.getAllUsers = getAllUsers;
  * @route http://localhost:4000/api/v1/user/:userId
  * @description Controller to fetch a user details
  * @parameters userId
- * @returns User Details
+ * @returns User details
  ******************************************************/
 const getUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -223,7 +223,7 @@ exports.getUserById = getUserById;
  * @route http://localhost:4000/api/v1/user/:userId
  * @description Controller to delete a user
  * @parameters userId
- * @returns Deleted User Details
+ * @returns Deleted user details
  ******************************************************/
 const deleteUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
