@@ -209,7 +209,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
 
 /******************************************************
  * @GET_USER_BY_ID
- * @route http://localhost:4000/api/v1/user
+ * @route http://localhost:4000/api/v1/user/:userId
  * @description Controller to fetch a user details
  * @parameters userId
  * @returns User Details
@@ -244,7 +244,7 @@ export const getUserById = async (req: Request, res: Response) => {
 
 /******************************************************
  * @DEL_USER_BY_ID
- * @route http://localhost:4000/api/v1/user
+ * @route http://localhost:4000/api/v1/user/:userId
  * @description Controller to delete a user
  * @parameters userId
  * @returns Deleted User Details
@@ -279,7 +279,7 @@ export const deleteUserById = async (req: Request, res: Response) => {
 
 /******************************************************
  * @UPDATE_USER_BY_ID
- * @route http://localhost:4000/api/v1/user
+ * @route http://localhost:4000/api/v1/user/:userId
  * @description Controller to update a user
  * @parameters userId
  * @returns Updated User Details

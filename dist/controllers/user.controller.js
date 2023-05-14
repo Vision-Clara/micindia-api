@@ -189,7 +189,7 @@ const getAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.getAllUsers = getAllUsers;
 /******************************************************
  * @GET_USER_BY_ID
- * @route http://localhost:4000/api/v1/user
+ * @route http://localhost:4000/api/v1/user/:userId
  * @description Controller to fetch a user details
  * @parameters userId
  * @returns User Details
@@ -220,7 +220,7 @@ const getUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.getUserById = getUserById;
 /******************************************************
  * @DEL_USER_BY_ID
- * @route http://localhost:4000/api/v1/user
+ * @route http://localhost:4000/api/v1/user/:userId
  * @description Controller to delete a user
  * @parameters userId
  * @returns Deleted User Details
@@ -251,7 +251,7 @@ const deleteUserById = (req, res) => __awaiter(void 0, void 0, void 0, function*
 exports.deleteUserById = deleteUserById;
 /******************************************************
  * @UPDATE_USER_BY_ID
- * @route http://localhost:4000/api/v1/user
+ * @route http://localhost:4000/api/v1/user/:userId
  * @description Controller to update a user
  * @parameters userId
  * @returns Updated User Details
