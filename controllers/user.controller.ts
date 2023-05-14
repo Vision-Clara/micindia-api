@@ -250,12 +250,54 @@ export const deleteUserById = async (req: Request, res: Response) => {
       throw new CustomError("User Not Found", 400);
     }
 
-    await UserModel.findByIdAndDelete(userId);
+    const deletedUser = await UserModel.findByIdAndDelete(userId);
 
     res.status(200).json({
       success: true,
       message: "User Deleted Successfully",
-      user: user,
+      user: deletedUser,
+    });
+  } catch (error: any) {
+    console.log(error);
+    return res.status(error.code || 500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+/******************************************************
+ * @UPDATE_USER_BY_ID
+ * @route http://localhost:4000/api/v1/user
+ * @description Delete One User Controller
+ * @parameters userId
+ * @returns User Details
+ ******************************************************/
+export const updateUserById = async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params;
+    const { name, branch, status, isActive, role } = req.body;
+
+    const user = await UserModel.findById(userId);
+
+    if (!user) {
+      throw new CustomError("User Not Found", 400);
+    }
+
+    const updatedUser = await UserModel.findByIdAndUpdate(userId, {
+      name,
+      branch,
+      status,
+      isActive,
+      role,
+    });
+
+    user.password = "******";
+
+    res.status(200).json({
+      success: true,
+      message: "Updated User Successfully",
+      user: updatedUser,
     });
   } catch (error: any) {
     console.log(error);

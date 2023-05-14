@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUserById = exports.getUserById = exports.getAllUsers = exports.getUserProfile = exports.signOut = exports.signIn = exports.signUp = void 0;
+exports.updateUserById = exports.deleteUserById = exports.getUserById = exports.getAllUsers = exports.getUserProfile = exports.signOut = exports.signIn = exports.signUp = void 0;
 const user_model_1 = __importDefault(require("../models/user.model"));
 const helpers_1 = require("../utils/helpers");
 /******************************************************
@@ -226,11 +226,11 @@ const deleteUserById = (req, res) => __awaiter(void 0, void 0, void 0, function*
         if (!user) {
             throw new helpers_1.CustomError("User Not Found", 400);
         }
-        yield user_model_1.default.findByIdAndDelete(userId);
+        const deletedUser = yield user_model_1.default.findByIdAndDelete(userId);
         res.status(200).json({
             success: true,
             message: "User Deleted Successfully",
-            user: user,
+            user: deletedUser,
         });
     }
     catch (error) {
@@ -242,3 +242,41 @@ const deleteUserById = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.deleteUserById = deleteUserById;
+/******************************************************
+ * @UPDATE_USER_BY_ID
+ * @route http://localhost:4000/api/v1/user
+ * @description Delete One User Controller
+ * @parameters userId
+ * @returns User Details
+ ******************************************************/
+const updateUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { userId } = req.params;
+        const { name, branch, status, isActive, role } = req.body;
+        const user = yield user_model_1.default.findById(userId);
+        if (!user) {
+            throw new helpers_1.CustomError("User Not Found", 400);
+        }
+        const updatedUser = yield user_model_1.default.findByIdAndUpdate(userId, {
+            name,
+            branch,
+            status,
+            isActive,
+            role,
+        });
+        user.password = "******";
+        res.status(200).json({
+            success: true,
+            message: "Updated User Successfully",
+            user: updatedUser,
+        });
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(error.code || 500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+});
+exports.updateUserById = updateUserById;

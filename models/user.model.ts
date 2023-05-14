@@ -4,30 +4,48 @@ import config from "../config/main";
 import bcrypt from "bcryptjs";
 
 import { IUserDocument } from "../utils/types";
-import { AUTH_ROLES } from "../utils/helpers";
+import { AUTH_ROLES, EMP_STATUS, LOCATIONS } from "../utils/helpers";
 
 const UserSchema = new mongoose.Schema(
   {
     name: {
       type: String,
       lowercase: true,
-      required: [true, "UserName Required"],
+      required: [true, "name Field is Required"],
       match: [/^[a-zA-Z\s]+$/, "Invalid Username"],
     },
     email: {
       type: String,
       unique: true,
       lowercase: true,
-      required: [true, "Email Required"],
+      required: [true, "email Field is Required"],
       match: [/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/, "Invalid Email"],
     },
     password: {
       type: String,
-      required: [true, "Password Required"],
+      required: [true, "password Field is Required"],
       minLength: [8, "Password should be minimum 8 characters"],
+    },
+    branch: {
+      type: String,
+      required: [true, "location Field is Required"],
+      enum: Object.values(LOCATIONS),
+      default: LOCATIONS.OTHER,
+    },
+    status: {
+      type: String,
+      required: [true, "status Field is Required"],
+      enum: Object.values(EMP_STATUS),
+      default: EMP_STATUS.NEW_REGISTRATION,
+    },
+    isActive: {
+      type: Boolean,
+      required: [true, "isActive Field is Required"],
+      default: false,
     },
     role: {
       type: String,
+      required: [true, "role Field is Required"],
       enum: Object.values(AUTH_ROLES),
       default: AUTH_ROLES.USER,
     },

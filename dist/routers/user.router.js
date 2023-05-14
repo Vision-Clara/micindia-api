@@ -6,4 +6,5 @@ const userRouter = (0, express_1.Router)();
 userRouter.get("/", user_controller_1.getAllUsers);
 userRouter.get("/:userId", user_controller_1.getUserById);
 userRouter.delete("/:userId", user_controller_1.deleteUserById);
+userRouter.patch("/:userId", user_controller_1.updateUserById);
 exports.default = userRouter;

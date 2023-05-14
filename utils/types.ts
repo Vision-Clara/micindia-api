@@ -5,15 +5,14 @@ export interface IUser {
   name: string;
   email: string;
   password: string;
+  branch: string;
+  status: string;
+  isActive: boolean;
   role: string;
 }
 
 export interface IUserDocument extends IUser, Document {
   _id: Types.ObjectId;
-  name: string;
-  email: string;
-  password: string;
-  role: string;
   getJwtToken(): string;
   comparePassword(enteredPassword: string): Promise<Boolean>;
 }
