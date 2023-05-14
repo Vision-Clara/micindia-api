@@ -10,5 +10,10 @@ const config = {
     JWT_EXPIRY: process.env.JWT_EXPIRY || "30d",
     MONGODB_URL: process.env.MONGODB_URL,
     PORT: process.env.PORT,
+    SMTP_SERVICE: process.env.SMTP_SERVICE || "gmail",
+    SMTP_MAIL_USERNAME: process.env.SMTP_MAIL_USERNAME,
+    SMTP_MAIL_EMAIL: process.env.SMTP_MAIL_EMAIL,
+    SMTP_MAIL_PASSWORD: process.env.SMTP_MAIL_PASSWORD,
+    FEEDBACK_MAILERS: process.env.FEEDBACK_MAILERS || "dev.micindia@gmail.com",
 };
 exports.default = config;

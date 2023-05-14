@@ -49,9 +49,10 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (error) {
         console.log(error);
-        res.status(error.code || 500).json({
+        res.status(error.statusCode || 500).json({
             success: false,
-            message: error.message,
+            code: error.code || "UNKOWN",
+            message: error.message || "Something Went Wrong",
         });
     }
 });
@@ -89,9 +90,10 @@ const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (error) {
         console.log(error);
-        res.status(error.code).json({
+        res.status(error.statusCode || 500).json({
             success: false,
-            message: error.message,
+            code: error.code || "UNKOWN",
+            message: error.message || "Something Went Wrong",
         });
     }
 });
@@ -116,9 +118,10 @@ const signOut = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (error) {
         console.log(error);
-        res.status(error.code).json({
+        res.status(error.statusCode || 500).json({
             success: false,
-            message: error.message,
+            code: error.code || "UNKOWN",
+            message: error.message || "Something Went Wrong",
         });
     }
 });
@@ -150,9 +153,10 @@ const getUserProfile = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
     catch (error) {
         console.log(error);
-        return res.status(error.code || 500).json({
+        res.status(error.statusCode || 500).json({
             success: false,
-            message: error.message,
+            code: error.code || "UNKOWN",
+            message: error.message || "Something Went Wrong",
         });
     }
 });
@@ -175,9 +179,10 @@ const getAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
     catch (error) {
         console.log(error);
-        return res.status(error.code || 500).json({
+        res.status(error.statusCode || 500).json({
             success: false,
-            message: error.message,
+            code: error.code || "UNKOWN",
+            message: error.message || "Something Went Wrong",
         });
     }
 });
@@ -205,9 +210,10 @@ const getUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
     catch (error) {
         console.log(error);
-        return res.status(error.code || 500).json({
+        res.status(error.statusCode || 500).json({
             success: false,
-            message: error.message,
+            code: error.code || "UNKOWN",
+            message: error.message || "Something Went Wrong",
         });
     }
 });
@@ -235,9 +241,10 @@ const deleteUserById = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
     catch (error) {
         console.log(error);
-        return res.status(error.code || 500).json({
+        res.status(error.statusCode || 500).json({
             success: false,
-            message: error.message,
+            code: error.code || "UNKOWN",
+            message: error.message || "Something Went Wrong",
         });
     }
 });
@@ -273,9 +280,10 @@ const updateUserById = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
     catch (error) {
         console.log(error);
-        return res.status(error.code || 500).json({
+        res.status(error.statusCode || 500).json({
             success: false,
-            message: error.message,
+            code: error.code || "UNKOWN",
+            message: error.message || "Something Went Wrong",
         });
     }
 });

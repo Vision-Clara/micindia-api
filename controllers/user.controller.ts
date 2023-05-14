@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import e, { Request, Response } from "express";
 
 import UserModel from "../models/user.model";
 import { CustomError, COOKIE_OPTIONS } from "../utils/helpers";
@@ -50,9 +50,10 @@ export const signUp = async (req: Request, res: Response) => {
   } catch (error: any) {
     console.log(error);
 
-    res.status(error.code || 500).json({
+    res.status(error.statusCode || 500).json({
       success: false,
-      message: error.message,
+      code: error.code || "UNKOWN",
+      message: error.message || "Something Went Wrong",
     });
   }
 };
@@ -102,9 +103,10 @@ export const signIn = async (req: Request, res: Response) => {
   } catch (error: any) {
     console.log(error);
 
-    res.status(error.code).json({
+    res.status(error.statusCode || 500).json({
       success: false,
-      message: error.message,
+      code: error.code || "UNKOWN",
+      message: error.message || "Something Went Wrong",
     });
   }
 };
@@ -130,9 +132,10 @@ export const signOut = async (req: Request, res: Response) => {
   } catch (error: any) {
     console.log(error);
 
-    res.status(error.code).json({
+    res.status(error.statusCode || 500).json({
       success: false,
-      message: error.message,
+      code: error.code || "UNKOWN",
+      message: error.message || "Something Went Wrong",
     });
   }
 };
@@ -168,9 +171,11 @@ export const getUserProfile = async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.log(error);
-    return res.status(error.code || 500).json({
+
+    res.status(error.statusCode || 500).json({
       success: false,
-      message: error.message,
+      code: error.code || "UNKOWN",
+      message: error.message || "Something Went Wrong",
     });
   }
 };
@@ -193,9 +198,11 @@ export const getAllUsers = async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.log(error);
-    return res.status(error.code || 500).json({
+
+    res.status(error.statusCode || 500).json({
       success: false,
-      message: error.message,
+      code: error.code || "UNKOWN",
+      message: error.message || "Something Went Wrong",
     });
   }
 };
@@ -226,9 +233,11 @@ export const getUserById = async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.log(error);
-    return res.status(error.code || 500).json({
+
+    res.status(error.statusCode || 500).json({
       success: false,
-      message: error.message,
+      code: error.code || "UNKOWN",
+      message: error.message || "Something Went Wrong",
     });
   }
 };
@@ -259,9 +268,11 @@ export const deleteUserById = async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.log(error);
-    return res.status(error.code || 500).json({
+
+    res.status(error.statusCode || 500).json({
       success: false,
-      message: error.message,
+      code: error.code || "UNKOWN",
+      message: error.message || "Something Went Wrong",
     });
   }
 };
@@ -301,9 +312,11 @@ export const updateUserById = async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.log(error);
-    return res.status(error.code || 500).json({
+
+    res.status(error.statusCode || 500).json({
       success: false,
-      message: error.message,
+      code: error.code || "UNKOWN",
+      message: error.message || "Something Went Wrong",
     });
   }
 };
