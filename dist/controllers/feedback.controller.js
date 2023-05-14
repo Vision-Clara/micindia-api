@@ -21,7 +21,7 @@ const main_1 = __importDefault(require("../config/main"));
  * @route http://localhost:4000/api/v1/feedback
  * @description Controller for sending feedback
  * @parameters feedbackUser, feedbackType, message
- * @returns User Details with Token
+ * @returns An message
  ******************************************************/
 const sendFeedback = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {

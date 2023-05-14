@@ -8,7 +8,7 @@ import config from "../config/main";
  * @route http://localhost:4000/api/v1/feedback
  * @description Controller for sending feedback
  * @parameters feedbackUser, feedbackType, message
- * @returns User Details with Token
+ * @returns An message
  ******************************************************/
 export const sendFeedback = async (req: Request, res: Response) => {
   try {
