@@ -7,21 +7,21 @@ import config from "../config/main";
  * @CONTACT
  * @route http://localhost:4000/api/v1/contact
  * @description Controller for sending contact message
- * @parameters contactUser, contactEmail, message
+ * @parameters  name, email, message
  * @returns An message
  ******************************************************/
 export const sendMessage = async (req: Request, res: Response) => {
   try {
-    const { contactUser, contactEmail, message } = req.body;
+    const { name, email, message } = req.body;
 
-    if (!contactUser || !contactEmail || !message) {
+    if (!name || !email || !message) {
       throw new CustomError("Please fill all details", 400);
     }
 
     const mailBody = `<div>
                          <p>Dear Admin, 
-                         <br/> <br/> We have a message from <strong>${contactUser}</strong>. Please have a look up on it. 
-                         <br/> <br/> Sender Email: <i> ${contactEmail} </i>
+                         <br/> <br/> We have a message from <strong>${name}</strong>. Please have a look up on it. 
+                         <br/> <br/> Sender Email: <i> ${email} </i>
                          <br/> Sender Message: <i> ${message} </i>
                       <div/>`;
 

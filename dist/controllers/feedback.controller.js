@@ -20,18 +20,18 @@ const main_1 = __importDefault(require("../config/main"));
  * @FEEDBACK
  * @route http://localhost:4000/api/v1/feedback
  * @description Controller for sending feedback
- * @parameters feedbackUser, feedbackType, message
+ * @parameters name, type, message
  * @returns An message
  ******************************************************/
 const sendFeedback = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { feedbackUser, feedbackType, message } = req.body;
-        if (!feedbackUser || !feedbackType || !message) {
+        const { name, type, message } = req.body;
+        if (!name || !type || !message) {
             throw new helpers_1.CustomError("Please fill all details", 400);
         }
         const mailBody = `<div>
                          <p>Dear Admin, 
-                         <br/> <br/> We have a feedback submission from <strong>${feedbackUser}</strong>, regarding <strong>${feedbackType}</strong>. Please have a look up on it. 
+                         <br/> <br/> We have a feedback submission from <strong>${name}</strong>, regarding <strong>${type}</strong>. Please have a look up on it. 
                          <br/> <br/> Feedback Message: <i> ${message} </i>
                       <div/>`;
         const mailTo = main_1.default.FEEDBACK_MAILERS;
