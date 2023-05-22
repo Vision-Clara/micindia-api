@@ -64,7 +64,7 @@ exports.creatEvent = creatEvent;
  ******************************************************/
 const getAllEvents = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const allEvents = yield event_model_1.default.find();
+        const allEvents = yield event_model_1.default.find().sort({ eventDate: "desc" });
         res.status(200).json({
             success: true,
             message: "Events Fetched Successfully",

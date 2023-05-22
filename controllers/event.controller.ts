@@ -57,7 +57,7 @@ export const creatEvent = async (req: Request, res: Response) => {
  ******************************************************/
 export const getAllEvents = async (req: Request, res: Response) => {
   try {
-    const allEvents = await EventModel.find();
+    const allEvents = await EventModel.find().sort({ eventDate: "desc" });
 
     res.status(200).json({
       success: true,

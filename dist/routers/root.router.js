@@ -21,5 +21,5 @@ rootRouter.post("/contact", contact_controller_1.sendMessage);
 rootRouter.get("/profile", auth_middleware_1.default, user_controller_1.getUserProfile);
 // Only ADMIN User
 rootRouter.use("/user", auth_middleware_1.default, admin_middleware_1.default, user_router_1.default);
-rootRouter.use("/event", auth_middleware_1.default, admin_middleware_1.default, event_router_1.default);
+rootRouter.use("/event", event_router_1.default);
 exports.default = rootRouter;

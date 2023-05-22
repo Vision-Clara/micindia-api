@@ -25,6 +25,6 @@ rootRouter.get("/profile", isLoggedIn, getUserProfile);
 
 // Only ADMIN User
 rootRouter.use("/user", isLoggedIn, isAdmin, userRouter);
-rootRouter.use("/event", isLoggedIn, isAdmin, eventRouter);
+rootRouter.use("/event", eventRouter);
 
 export default rootRouter;

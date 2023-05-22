@@ -6,13 +6,17 @@ import {
   getEventById,
   updateEventById,
 } from "../controllers/event.controller";
+import isLoggedIn from "../middlewares/auth.middleware";
+import isAdmin from "../middlewares/admin.middleware";
 
 const eventRouter = express.Router();
 
-eventRouter.post("/", creatEvent);
 eventRouter.get("/", getAllEvents);
-eventRouter.get("/:eventId", getEventById);
-eventRouter.delete("/:eventId", deleteEventById);
-eventRouter.patch("/:eventId", updateEventById);
+
+// Protected Routes
+eventRouter.post("/", isLoggedIn, isAdmin, creatEvent);
+eventRouter.get("/:eventId", isLoggedIn, isAdmin, getEventById);
+eventRouter.delete("/:eventId", isLoggedIn, isAdmin, deleteEventById);
+eventRouter.patch("/:eventId", isLoggedIn, isAdmin, updateEventById);
 
 export default eventRouter;
