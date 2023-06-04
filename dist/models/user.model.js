@@ -66,7 +66,10 @@ UserSchema.pre("save", function (next) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!this.isModified())
             return next();
-        this.password = yield bcryptjs_1.default.hash(this.password, 10);
+        const password = yield bcryptjs_1.default.hash(this.password, 10);
+        if (!password) {
+            this.password = password;
+        }
         next();
     });
 });
