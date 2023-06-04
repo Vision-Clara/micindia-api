@@ -4,7 +4,12 @@ import config from "../config/main";
 import bcrypt from "bcryptjs";
 
 import { IUserDocument } from "../utils/types";
-import { AUTH_ROLES, EMP_STATUS, LOCATIONS } from "../utils/helpers";
+import {
+  AUTH_ROLES,
+  CustomError,
+  EMP_STATUS,
+  LOCATIONS,
+} from "../utils/helpers";
 
 const UserSchema = new mongoose.Schema(
   {
@@ -58,9 +63,8 @@ const UserSchema = new mongoose.Schema(
 UserSchema.pre("save", async function (next) {
   if (!this.isModified()) return next();
 
-  const password = await bcrypt.hash(this.password, 10);
-  if (!password) {
-    this.password = password;
+  if (!this.password) {
+    this.password = await bcrypt.hash(this.password, 10);
   }
 
   next();
